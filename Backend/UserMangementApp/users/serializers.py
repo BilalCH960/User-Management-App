@@ -18,17 +18,13 @@ class UserSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields =['username','profile_picture'] 
+        fieds = ['username','profile_picture']
 
-    def update(self, instance, validated_data):
+
+    def update(self,instance,validated_data):
         user = instance.user
         user.username = validated_data.get('username',user.username)
         user.save()
-        instance.profile_picture = validated_data.get('profile_picture', instance.profile_picture)
+        instance.profile_picture = validated_data.get('profile_picture',instance.profile_picture)
         instance.save()
         return instance
-    
-
-
-
-
