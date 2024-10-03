@@ -1,7 +1,6 @@
-import React, {useState} from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import axiosInstance from "../../axiosconfig";
+import React, {useEffect, useState} from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { useNavigate, Link, replace } from "react-router-dom";
 import { setAuthData } from "../../redux/auth/authSlice";
 import adminAxiosInstance from "../../adminaxiosconfig";
 import './AdminLogin.css'
@@ -12,6 +11,14 @@ const AdminLogin = () => {
     const navigate = useNavigate();
     const [error, setError] = useState(''); // State for error message
 
+    const user = useSelector((state) => state.auth.user)
+
+
+    useEffect(() => {
+      if (user && user.is_superuser) { // Check if the user is a superuser
+          navigate('/admin/dashboard');
+      }
+    }, [user, navigate]);
 
     const handleAdminLogin = async (e) => {
         e.preventDefault();
@@ -19,8 +26,10 @@ const AdminLogin = () => {
             const response = await adminAxiosInstance.post('/admin/token/', {email, password});
             localStorage.setItem('adminToken', response.data.admin_token);
             localStorage.setItem('adminData', JSON.stringify(response.data));
+
             dispatch(setAuthData(response.data));
-            navigate('/admin/dashboard');
+
+            navigate('/admin/dashboard',{replace:true});
         } catch (error) {
             console.error('Admin login failed:', error)
             setError('Login failed. Please check your credentials.'); // Set error message

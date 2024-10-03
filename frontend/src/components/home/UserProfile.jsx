@@ -17,14 +17,21 @@ function UserProfile() {
   const [fileError, setFileError] = useState('');
 
 
+
+  useEffect(()=>{
+    if(!user) {
+      navigate('/login')
+    }
+  },[user]);
+
+
   useEffect(() => {
     fetchProfile();
-    }, []);
+  }, []);
 
   const fetchProfile = async () => {
     try {
       const response = await axiosInstance.get('user-profile/');
-      console.log(response.data); // Log to inspect
       setProfile(response.data);
       setNewUsername(response.data.username);
       setError(null);
@@ -46,7 +53,7 @@ function UserProfile() {
   };
 
   const validateUsername = (username) => {
-    if (typeof username !== 'string' || !username.trim()) {
+    if (!username.trim()) {
       setUsernameError("Username is required");
       return false
     } else if (!/^[a-zA-Z]+$/.test(username)) {  // Updated regex to only allow letters
@@ -123,12 +130,7 @@ function UserProfile() {
         <div className="profile-header">
           <div className="profile-picture">
             {profile.profile_picture ? (
-              <img 
-              // src={profile.profile_picture} 
-              src={`http://localhost:8000${profile.profile_picture}`}
-              alt="Profile" 
-              />
-
+              <img src={profile.profile_picture} alt="Profile" />
             ) : (
               <div className="profile-initial">{user?.first_name[0]}</div>
             )}

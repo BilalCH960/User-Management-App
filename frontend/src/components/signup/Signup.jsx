@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
-import { useNavigate, Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from '../../axiosconfig';
-import { setAuthData } from '../../redux/auth/authSlice'; 
+// import { setAuthData } from '../../redux/auth/authSlice'; 
 import './Signup.css';
 
 const Signup = () => {
@@ -16,8 +16,12 @@ const Signup = () => {
     confirmPassword: ''
   });
   const [errors, setErrors] = useState({});
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [err, setErr] = useState('');
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -86,120 +90,110 @@ const Signup = () => {
           email: formData.email,
           password: formData.password,
         });
-        dispatch(setAuthData(response.data));
-        navigate('/login');
+        // dispatch(setAuthData(response.data));
+        navigate('/login',{ replace:true });
       } catch (error) {
         console.error('Signup failed:', error);
-        // Handle error (e.g., show error message to user)
+        setErr("Signup Failed")
       }
     }
   };
 
-        return (
-            <div className='signup-container'>
-              <div className='signup-form'>
-                <div className='signup-avatar-container'>
-                  <div className='signup-avatar'>
-                    <h2>User Register</h2>
-                  </div>
-                </div>
-                <form onSubmit={handleSignup}>
-                  <div className='input-container'>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      placeholder="First Name"
-                      required
-                    />
-                    {errors.firstName && <span className="error">{errors.firstName}</span>}
-                  </div>
-                  <div className='input-container'>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      placeholder="Last Name"
-                      required
-                    />
-                    {errors.lastName && <span className="error">{errors.lastName}</span>}
-                  </div>
-                  <div className='input-container'>
-                    <input
-                      type="text"
-                      name="username"
-                      value={formData.username}
-                      onChange={handleChange}
-                      placeholder="Username"
-                      required
-                    />
-                    {errors.username && <span className="error">{errors.username}</span>}
-                  </div>
-                  <div className='input-container'>
-                    <input
-                      type="text"
-                      name="phoneNumber"
-                      value={formData.phoneNumber}
-                      onChange={handleChange}
-                      placeholder="Phone number"
-                      required
-                    />
-                    {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
-                  </div>
-                  <div className='input-container'>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Email"
-                      required
-                    />
-                    {errors.email && <span className="error">{errors.email}</span>}
-                  </div>
-                  <div className='input-container'>
-                    <input
-                      type="password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      placeholder="Password"
-                      required
-                    />
-                    {errors.password && <span className="error">{errors.password}</span>}
-                  </div>
-                  <div className='input-container'>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      placeholder="Confirm Password"
-                      required
-                    />
-                    {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
-                  </div>
-                  <button type="submit" className='signup-button'>SIGNUP</button>
-                </form>
-                <div className='redirect'>
-                  <p>Already have an account? <Link to="/login">Login</Link></p>
-                </div>
-              </div>
-            </div>
-          );
-
-
+  return (
+    <div className='signup-container'>
+      <div className='signup-form'>
+        <div className='signup-avatar-container'>
+          <div className='signup-avatar'>
+            <h2>User Register</h2>
+          </div>
+        </div>
+        <form onSubmit={handleSignup}>
+          <div className='input-container'>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="First Name"
+              required
+            />
+            {errors.firstName && <span className="error">{errors.firstName}</span>}
+          </div>
+          <div className='input-container'>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Last Name"
+              required
+            />
+            {errors.lastName && <span className="error">{errors.lastName}</span>}
+          </div>
+          <div className='input-container'>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Username"
+              required
+            />
+            {errors.username && <span className="error">{errors.username}</span>}
+          </div>
+          <div className='input-container'>
+            <input
+              type="text"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              placeholder="Phone number"
+              required
+            />
+            {errors.phoneNumber && <span className="error">{errors.phoneNumber}</span>}
+          </div>
+          <div className='input-container'>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              required
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </div>
+          <div className='input-container'>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Password"
+              required
+            />
+            {errors.password && <span className="error">{errors.password}</span>}
+          </div>
+          <div className='input-container'>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="Confirm Password"
+              required
+            />
+            {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+          </div>
+          <button type="submit" className='signup-button'>SIGNUP</button>
+        </form>
+        {err && <div className='error-message'>{err}</div>} 
+        <div className='redirect'>
+          <p>Already have an account? <Link to="/login">Login</Link></p>
+        </div>
+      </div>
+    </div>
+  );
 };
-        
+
 export default Signup;
-
-
-
-
-
-
-
-
-

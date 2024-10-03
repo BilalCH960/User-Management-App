@@ -12,13 +12,14 @@ const CreateUserPage = () => {
     email: '',
     phone_number: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
 
   const validate = () => {
     let tempErrors = {};
@@ -154,6 +155,7 @@ const CreateUserPage = () => {
           type="password"
         />
         {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+        
         <div className="create-user-button-group">
           <button className="create-user-submit" type="submit">Create User</button>
           <button className="create-user-cancel" type="button" onClick={handleCancel}>Cancel</button>

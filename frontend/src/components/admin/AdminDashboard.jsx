@@ -60,6 +60,20 @@ const AdminDashboard = () => {
     }
   };
 
+
+
+  // const changeUserRoleToAdmin = async (userId) => {
+  //   try {
+  //     // Send a POST request to the server to change the user's role
+  //     await adminAxiosInstance.post(`/admin/users/${userId}/make-admin/`);
+  
+  //     // Optionally, refresh the dashboard data to reflect the changes
+  //     fetchDashboardData();
+  //   } catch (error) {
+  //     console.error('Failed to change user role to admin:', error);
+  //   }
+  // };
+
   const UserTable = ({ users, tableTitle, isActive }) => (
     <div className="user-table-container">
       <h3 className="table-title">{tableTitle}</h3>
@@ -78,6 +92,7 @@ const AdminDashboard = () => {
               <td>{user.id}</td>
               <td>{user.username}</td>
               <td>{user.email}</td>
+              
               <td>
                 <button 
                   className={`action-btn ${isActive ? 'block-btn' : 'unblock-btn'}`}

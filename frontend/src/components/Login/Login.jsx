@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from '../../axiosconfig';
 import { setAuthData } from '../../redux/auth/authSlice';
+import {useSelector} from 'react-redux';
 import './Login.css'
+
+
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [error, setError] = useState(''); // State for error message
+    const [error,setError] = useState();
 
+    const user = useSelector((state) => state.auth.user);
+
+
+    useEffect(() => {
+        if (user) {
+            navigate('/home')
+        }
+    },[user,navigate])
+
+    
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
@@ -20,10 +34,10 @@ const Login = () => {
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('token', token);
             dispatch(setAuthData(response.data));
-            navigate('/home')
+            navigate('/home',{replace:true})
         } catch (error) {
             console.error('Login Failed:', error)
-            setError('Login failed. Please check your credentials.'); // Set error message
+            setError('Login failed. Please check your credentials.'); 
         }
     }
 
@@ -57,7 +71,7 @@ const Login = () => {
                     </div>
                     <button type='submit' className='login-button'>LOGIN</button>
                 </form>
-                {error && <div className='error-message'>{error}</div>} {/* Display error message */}
+                {error && <div className='error-message'>{error}</div>}
                 <div className='redirect'>
                     <p>Don't have an acoount ?<Link to="/signup">Signup</Link><br /> </p>
                     <p>Switch to Admin ?<Link to="/admin/login">Admin-Login</Link><br /> </p>
