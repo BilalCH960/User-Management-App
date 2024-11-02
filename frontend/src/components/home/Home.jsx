@@ -32,7 +32,7 @@ function Home() {
   return (
     <div className="home-container">
       <nav className="navbar">
-        <div className="navbar-brand">PERSONO.care</div>
+        <div className="navbar-brand">chatChaotic</div>
         <div className="navbar-menu">
           <Link to="/user-profile" className="navbar-item">User Profile</Link>
           <button onClick={handleLogout} className="navbar-item logout-btn">Logout</button>
