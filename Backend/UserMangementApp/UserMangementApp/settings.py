@@ -95,8 +95,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "reduxdata",
-        "USER": "don",
-        "PASSWORD": "don@redux",
+        "USER": "postgres",
+        "PASSWORD": "password",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
